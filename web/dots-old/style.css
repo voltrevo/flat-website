@@ -1,0 +1,16 @@
+body
+{
+    background-color: #000;
+}
+
+.dot
+{
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    margin-top: -4px;
+    background-color: blue;
+    border-radius: 100%;
+    position: absolute;
+    opacity: 0.8;
+}
