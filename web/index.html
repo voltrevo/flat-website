@@ -104,17 +104,15 @@
       }
     </style>
 
-    <script src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
-
     <script>
       'use strict';
 
-      $(document).ready(function()
-      {
-        $('#email-link').click(function() {
+      window.addEventListener('load', function() {
+        var emailLink = document.querySelector('#email-link');
+        emailLink.addEventListener('click', function() {
           window.location = 'mailto:volt' + 'revo@gmail.com'
-        })
-      })
+        });
+      });
     </script>
   </head>
   <body>
