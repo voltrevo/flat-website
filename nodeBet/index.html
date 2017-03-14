@@ -1,0 +1,228 @@
+<html>
+<head>
+<title>Node Bet</title>
+
+<link rel="favicon reloader" href="/favicon.ico?v=3" />
+
+<style>
+.noSelect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body {
+    background-image: url("images/carbon_fibre_tile.png");
+}
+
+table {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+td {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: white;
+    padding: 7px;
+}
+
+th {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: #5da1a3;
+    font-weight: normal;
+    padding: 10px;
+}
+
+.noBg {
+    background-color: transparent;
+    background-image: none;
+}
+
+</style>
+
+<link rel="stylesheet" href="css/alertify/alertify.min.css"/>
+<link rel="stylesheet" href="css/alertify/default.css"/>
+
+<script src="frontend.js"></script>
+
+</head>
+<body style="font-family:consolas,courier new;margin:0" class="noSelect">
+
+<a href="/"><img style="position:absolute;top:50;left:50%;margin-top:-35px;margin-left:-35px;width:70px;height:70px;" src="images/logo.png"/></a>
+
+<table cellspacing=0 id="mainTable" width="100%">
+
+<tr><td style="background-color:#16383f;height:50px;border-bottom:none;"></td></tr>
+<tr><td style="background-color:#dcedf0;height:10px;padding:0px;"></td></tr>
+<tr><td style="height:25px;border-bottom:none" class="noBg"></td></tr>
+
+<tr><td class="noBg">
+
+<table style="border:none" align="center" id="startupTable"><tr><td style="border:none;background-color:transparent"><table cellspacing=0 align="center">
+    <tr>
+        <th colspan=2 align="center">
+            <select id="startupSelector" style="font-size:16px" onchange="updateStartupTable()">
+                <option value="login">Login</option>
+                <option value="register">Register</option>
+                <option value="changePassword">Change Password</option>
+            </select>
+        </th>
+    </tr>
+    <tr>
+        <td>Username</td>
+        <td><input type="text" id="usernameInput"/></td>
+    </tr>
+    <!-- Login -->
+    <tr id="loginRow1">
+        <td>Password</td>
+        <td><input type="password" id="loginPasswordInput"/></td>
+    </tr>
+    <!-- Register -->
+    <tr id="registerRow1" style="display:none">
+        <td>Registration Key</td>
+        <td><input type="text" id="registerRegistrationKeyInput"/></td>
+    </tr>
+    <tr id="registerRow2" style="display:none">
+        <td>Password</td>
+        <td><input type="password" id="registerPasswordInput"/></td>
+    </tr>
+    <tr id="registerRow3" style="display:none">
+        <td>Confirm Password</td>
+        <td><input type="password" id="registerConfirmPasswordInput"/></td>
+    </tr>
+    <!-- Change Password -->
+    <tr id="changePasswordRow1" style="display:none">
+        <td>Old Password</td>
+        <td><input type="password" id="changePasswordOldPasswordInput"/></td>
+    </tr>
+    <tr id="changePasswordRow2" style="display:none">
+        <td>New Password</td>
+        <td><input type="password" id="changePasswordNewPasswordInput"/></td>
+    </tr>
+    <tr id="changePasswordRow3" style="display:none">
+        <td>Confirm New Password</td>
+        <td><input type="password" id="changePasswordConfirmNewPasswordInput"/></td>
+    </tr>
+</table></td></tr></table>
+
+<table align="center" cellpadding="20" width="100%" style="visibility:hidden;border:0" id="innerLayoutTable"><tr><td class="noBg" width="33%" valign="top" style="border:0">
+
+<table align="center" cellspacing=0 id="lotSizeSelector" width="100%">
+    <tr>
+        <th colspan=3 align="center">Position</th>
+    </tr>
+    <tr>
+        <td align="center" width="33%">Cash</td>
+        <td align="center" width="34%">Contracts</td>
+        <td align="center" width="33%">Valuation</td>
+    </tr>
+    <tr>
+        <td align="center" width="33%" id="cashDisplay"></td>
+        <td align="center" width="34%" id="posDisplay"></td>
+        <td align="center" width="33%" id="valuationDisplay"></td>
+    </tr>
+</table>
+<br>
+
+<div id="adminDisplay" align="center"></div>
+
+<br>
+
+<!-- Chat -->
+<table align="center" cellspacing=0 cellpadding=0 width="100%">
+    <tr>
+        <th align="center" style="padding:10;">
+            Chat 
+        </th>
+    </tr>
+    <tr>
+        <td height=300 width="100%">
+            <div id="chatDisplay" style="width:100%;height:100%;overflow:auto;word-wrap:break-word;"></div> 
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:0px">
+            <textarea id="chatInput" style="width:100%;height:100%;border:0;" onfocus="unbindHotkeys()" onblur="bindHotkeys()"></textarea>
+        </td>
+    </tr>
+</table>
+
+</td><td class="noBg" width="34%" valign="top" style="border:0">
+
+<table align="center" cellspacing=0 id="ladderTable" frame="box" rules="all">
+</table>
+
+</td><td class="noBg" width="33%" valign="top" style="border:0">
+
+<table align="center" cellspacing=0 id="lotSizeSelector" style="width:100%">
+    <tr>
+        <th colspan=3 align="center">Lot Size</th>
+    </tr>
+    <tr>
+        <td width="33%" align="center" onclick="decreaseLotSize()">-</td>
+        <td width="34%" align="center" id="lotSizeDisplay">1</td>
+        <td width="33%" align="center" onclick="increaseLotSize()" unselectable="on">+</td>
+    </tr>
+</table>
+
+<br>
+
+<table align="center" cellspacing=0 id="quoterTable" style="width:100%">
+    <tr>
+        <th colspan=3 align="center">Quoter</th>
+    </tr>
+    <tr>
+        <td width="33%" align="center">On</td>
+        <td width="34%" align="center">Offset</td>
+        <td width="33%" align="center">Size</td>
+    </tr>
+    <tr>
+        <td align="center" id="quoterOnDisplay"></td>
+        <td align="center" id="quoterOffsetDisplay"></td>
+        <td align="center" id="quoterSizeDisplay"></td>
+    </tr>
+</table>
+
+<br>
+
+<div style="width:100%;height:300;overflow:auto;background-color:white;">
+    <table align="center" cellspacing=0 id="orderTable" width="100%">
+        <tr>
+            <th colspan=5 align="center">Orders</th>
+        </tr>
+        <tr id="orderHeadings">
+            <td align="center" width="15%">Side</td>
+            <td align="center" width="17%">Price</td>
+            <td align="center" width="20%">Volume</td>
+            <td align="center" width="37%">Status</td>
+            <td align="center" width="11%" onclick="massDelete()">x</td>
+        </tr>
+    </table>
+</div>
+
+<br>
+
+<div style="width:100%;height:300;overflow:auto;background-color:white;">
+    <table align="center" cellspacing=0 id="tradeTable" width="100%">
+        <tr>
+            <th colspan=5 align="center">Trades</th>
+        </tr>
+        <tr id="tradeHeadings">
+            <td align="center" width="33%">Side</td>
+            <td align="center" width="34%">Price</td>
+            <td align="center" width="33%">Volume</td>
+        </tr>
+    </table>
+</div>
+
+</td></tr></table>
+
+</td></tr></table>
+
+</body>
+</html>

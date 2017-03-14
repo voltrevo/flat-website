@@ -1,0 +1,20 @@
+body {
+    background-color: #ddd;
+    margin: 0;
+}
+
+.maze .wall {
+    background-color: #fff;
+}
+
+.maze .wall.enabled {
+    background-color: #000;
+}
+
+.maze .corner {
+    background-color: #000;
+}
+
+.maze .cell {
+    background-color: #fff;
+}

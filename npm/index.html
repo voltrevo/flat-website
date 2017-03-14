@@ -1,0 +1,25 @@
+<script>
+
+window.npm = function(moduleName) {
+  return new Promise(function(resolve, reject) {
+    var scriptTag = document.createElement('script');
+    scriptTag.src = 'https://www.brcdn.org/' + moduleName + '/latest';
+    
+    document.body.appendChild(scriptTag);
+    
+    scriptTag.addEventListener('load', function() {
+      if (!window.require) {
+        reject(new Error('require function not found'));
+        return;
+      }
+      
+      console.log('Loaded', moduleName);
+      window[moduleName] = require(moduleName);
+      resolve(window[moduleName]);
+    });
+    
+    scriptTag.addEventListener('error', reject);
+  });
+};
+
+</script>

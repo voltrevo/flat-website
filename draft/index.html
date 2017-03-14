@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>andrewmorris.io</title>
+
+    <style>
+      html {
+        background-color: black;
+      }
+
+      body {
+        margin: 0;
+        background-image: url('fractalBackground.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+        font-family: arial;
+      }
+
+      .section-list {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+        font-size: 3em;
+      }
+
+      .section-list * {
+        padding: 1em;
+        transition: background-color ease-in-out;
+        transition-duration: 0.3s;
+      }
+
+      .section-list *:nth-child(1) {
+        background-color: rgba(0, 0, 0, 0.8);
+        font-size: 0.5em;
+        padding: 0.5em;
+      }
+
+      .section-list *:nth-child(2n+2) {
+        background-color: hsla(230, 70%, 20%, 0.92);
+      }
+
+      .section-list *:hover:nth-child(2n+2) {
+        background-color: hsla(230, 100%, 20%, 0.7);
+      }
+
+      .section-list *:nth-child(2n+3) {
+        background-color: hsla(220, 70%, 20%, 0.92);
+      }
+
+      .section-list *:hover:nth-child(2n+3) {
+        background-color: hsla(205, 100%, 20%, 0.7);
+      }
+
+      .section-list > a {
+        display: block;
+        text-decoration: none;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='section-list'>
+      <div>andrewmorris.io</div>
+      <a href='about'>about</a>
+      <a href='http://andrewmorris.io/'>projects</a>
+      <div>blog</div>
+      <div>resume</div>
+      <div>search</div>
+      <div>contact</div>
+    </div>
+  </body>
+</html>

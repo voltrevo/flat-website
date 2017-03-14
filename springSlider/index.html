@@ -1,0 +1,62 @@
+<script>
+
+window.addEventListener('load', function() {
+  var inp = document.createElement('input')
+  inp.setAttribute('type', 'range')
+  inp.setAttribute('min', '-1.01')
+  inp.setAttribute('max', '1.01')
+  inp.setAttribute('step', '0.01')
+  inp.style.width = '200px'
+  inp.style.margin = '20px'
+  inp.value = 0
+  document.body.appendChild(inp)
+
+  var out = document.createElement('div')
+  out.style.textAlign = 'right'
+  out.style.backgroundColor = 'blue'
+  out.style.width = '20px'
+  out.style.padding = '25px'
+  out.style.margin = '20px'
+  out.style.color = 'white'
+  var outVal = 0
+  out.innerHTML = outVal.toFixed(2)
+  document.body.appendChild(out)
+  window.out = out
+  out.style.borderRadius = out.clientHeight / 2 + 'px'
+
+  var active = false
+
+  inp.addEventListener('input', function listener() {
+    if (!active) {
+      active = true
+
+      var outChangerId = setInterval(function() {
+        var rawValue = parseFloat(inp.value)
+        outVal = Math.max(0, outVal + 5 * rawValue * rawValue * rawValue)
+        out.innerHTML = outVal.toFixed(2)
+        out.style.width = outVal + 20 + 'px'
+      }, 17)
+
+      window.addEventListener('mouseup', function resetRange() {
+        window.removeEventListener('mouseup', resetRange)
+
+        var value = inp.value
+
+        var id = setInterval(function() {
+          value *= 0.85
+          inp.value = value
+          
+          if (Math.abs(value) < 0.02) {
+            inp.value = 0
+            clearInterval(id)
+            clearInterval(outChangerId)
+          }
+        }, 17)
+        
+        active = false
+      })
+    }
+  })
+})
+
+</script>

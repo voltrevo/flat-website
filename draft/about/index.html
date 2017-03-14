@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>about</title>
+
+    <style>
+      body {
+        margin: 0;
+        background-image: url('picture.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+        font-family: arial;
+      }
+
+      #container {
+        width: 100%;
+        height: 100%;
+      }
+
+      #about {
+        position: absolute;
+        top: 3em;
+        left: 50%;
+        right: 20px;
+        text-shadow: 1px 1.5px 2px black;
+      }
+
+      #about a {
+        text-decoration: none;
+        color: hsla(240, 100%, 92%, 1);
+      }
+
+      #headings {
+        height: 180px;
+      }
+
+      .section-list {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        color: white;
+        font-size: 3em;
+        position: fixed;
+        z-index: 1;
+      }
+
+      .section-list * {
+        padding: 1em;
+        transition: background-color ease-in-out;
+        transition-duration: 0.3s;
+      }
+
+      .section-list *:nth-child(1) {
+        background-color: rgba(0, 0, 0, 0.6);
+        font-size: 0.5em;
+        padding: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='section-list'>
+      <div id='nav'>about</div>
+    </div>
+    <div id='about'>
+      <div id='headings'>
+        <h1>Andrew Morris</h1>
+        <h3>Software Developer. Runner. Science Fanatic.</h3>
+      </div>
+
+      <div id='main'>
+        <p>
+          I'm such a nerd :-). I don't know how it happened, but somehow growing up on the NSW South Coast I developed this love of mathematics, science, and all things technology. Nowadays you can find me pursuing these passions at <a href='http://tokbox.com'>TokBox</a> in Sydney.
+        </p>
+
+        <p>
+          Staying grounded is really important to me. Without appreciation, nothing is worth having. I'm an <a href='https://www.youtube.com/watch?v=ZMBJ87ZTuJY'>optimist</a>, and feel a responsibility to be a positive influence in the world.
+        </p>
+
+        <p>
+          I believe that with consistent effort we can all do amazing things. Life is a marathon, not a sprint.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

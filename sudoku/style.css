@@ -1,0 +1,68 @@
+body
+{
+    background-color: #444;
+    font-family: arial;
+    -webkit-touch-callout: none;                                                                                                                              
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#sudokuContainer
+{
+    margin: auto;
+}
+
+.sudokuTable, .sudokuTable table
+{
+    margin: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.sudokuTable td
+{
+    border: 1px solid black;
+    padding: 0;
+    background-color: #038;
+}
+
+.sudokuTable td td
+{
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 0px;
+    font-size: 0px;
+}
+
+.numIcon
+{
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    background-color: #44f;
+    display: inline-block;
+    margin: 3px;
+    border-radius: 100%;
+    font-size: 11px;
+    color: #44f;
+    text-align: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.numIconRevealed
+{
+    background-color: #88f;
+    color: #000;
+    cursor: pointer;
+}
+
+.numIcon:hover
+{
+    background-color: #88f;
+    color: #000;
+    cursor: pointer;
+}

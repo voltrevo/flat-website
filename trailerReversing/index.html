@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>Trailer Reversing</title>
+
+<script language="javascript" src="common.js"></script>
+<script language="javascript" src="rect.js"></script>
+<script language="javascript" src="canvasWrapper.js"></script>
+<script language="javascript" src="car.js"></script>
+<script language="javascript" src="trailer.js"></script>
+<script language="javascript" src="steeringWheel.js"></script>
+<script language="javascript" src="driveway.js"></script>
+<script language="javascript" src="timer.js"></script>
+
+<script language="javascript">
+
+var Global =
+{
+    cw: null,
+    loadTime: new Date()
+};
+
+function Init()
+{
+    var ctx = document.getElementById("cvs").getContext("2d");
+    Global.cw = new CanvasWrapper(ctx);
+    Refit(ctx);
+    SetItems();
+    Update();
+}
+
+function SetItems()
+{
+    var car = new Car(
+        new Point(0, 0),
+        0.05,
+        0.08,
+        "red");
+    
+    var trailer = new Trailer(
+        car,
+        0.065,
+        0.08,
+        "grey");
+    
+    Global.cw.SetItem(
+        "driveway",
+        new Driveway(
+            new Point(0.3, 0.3),
+            0.135,
+            0.24,
+            Math.PI / 2,
+            0.005,
+            0.13,
+            car,
+            trailer));
+    
+    Global.cw.SetItem(
+        "car",
+        car);
+    
+    Global.cw.SetItem(
+        "trailer",
+        trailer);
+    
+    Global.cw.SetItem(
+        "steeringWheel",
+        new SteeringWheel(
+            new Point(Global.cw.GetRight() - 0.15, Global.cw.GetBottom() + 0.15),
+            0.1,
+            car));
+    
+    Global.cw.SetItem(
+        "timer",
+        new Timer());
+    
+    Global.cw.GetItem("timer").Start();
+}
+
+function HandleJackknife()
+{
+    ResetVehicle();
+}
+
+function HandleCrash()
+{
+    ResetVehicle();
+}
+
+function HandleVictory()
+{
+    Global.cw.GetItem("timer").Stop();
+}
+
+function ResetVehicle()
+{
+    Global.cw.GetItem("car").Reset(new Point(0, 0));
+    Global.cw.GetItem("trailer").Reset();
+}
+
+window.RequestAnimFrame = (
+    window.requestAnimationFrame || 
+    window.webkitRequestAnimationFrame || 
+    window.mozRequestAnimationFrame || 
+    window.oRequestAnimationFrame || 
+    window.msRequestAnimationFrame || 
+    function (callback)
+    {
+        window.setTimeout(callback, 1000 / 60);
+    });
+
+var pressedKeys = { };
+
+document.onkeydown = function(event)
+{
+    if (event.keyCode == 38) pressedKeys.up = true;
+    else if (event.keyCode == 40) pressedKeys.down = true;
+    else if (event.keyCode == 37) pressedKeys.left = true;
+    else if (event.keyCode == 39) pressedKeys.right = true;
+    else if (event.keyCode == 66) pressedKeys.b = true;
+    else if (event.keyCode == 68) pressedKeys.d = true;
+    else if (event.keyCode == 83) pressedKeys.s = true;
+    
+    //alert(event.keyCode);
+}
+
+document.onkeyup = function(event)
+{
+    if (event.keyCode == 38) pressedKeys.up = false;
+    else if (event.keyCode == 40) pressedKeys.down = false;
+    else if (event.keyCode == 37) pressedKeys.left = false;
+    else if (event.keyCode == 39) pressedKeys.right = false;
+    else if (event.keyCode == 66) pressedKeys.b = false;
+    else if (event.keyCode == 68) pressedKeys.d = false;
+    else if (event.keyCode == 83) pressedKeys.s = false;
+}
+
+function Update()
+{
+    var ctx = document.getElementById("cvs").getContext("2d");
+    
+    Clear(ctx);
+    Refit(ctx);
+    Global.cw.Update();
+    Draw();
+    
+    RequestAnimFrame(Update);
+}
+
+function Clear(ctx)
+{
+    // Store the current transformation matrix
+    ctx.save();
+
+    // Use the identity matrix while clearing the canvas
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    // Restore the transform
+    ctx.restore();
+}
+
+function Draw()
+{
+    Global.cw.Draw();
+}
+
+function Refit(ctx)
+{
+    ctx.canvas.width = document.body.clientWidth;
+    ctx.canvas.height = document.body.clientHeight;
+}
+
+</script>
+
+</head>
+<body onload="Init();" style="margin:0;">
+
+<canvas id="cvs">
+
+</body>
+</html>
